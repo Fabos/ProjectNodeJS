@@ -51,7 +51,10 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
         }
         //Generar JWT
+        console.log("PRINT LOGIN");
         const token = yield generar_jwt_1.default(oUsuario.id);
+        console.log("PRINT LOGIN");
+        console.log(token);
         res.json({
             usuario,
             token

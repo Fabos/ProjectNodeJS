@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hour Home | Perfil Usuario</title>
+  <title>Administrador</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -11,8 +11,12 @@
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+
+  <link rel="stylesheet" href="/lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css"/>
+    <link rel="stylesheet" href="/lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css"/>
 </head>
 <body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -27,10 +31,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
-
-
-      <!-- Messages Dropdown Menu -->
- 
+  
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -72,10 +73,9 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Bienvenido</a>
+          <a href="#" class="d-block">Bienvenido Usuario</a>
         </div>
       </div>
 
@@ -96,20 +96,25 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          <li class="nav-header">Administrador</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+            <a href="../listar-usuario/" class="nav-link">
+              <i class="nav-icon far fa-calendar-alt"></i>
               <p>
-                Categorias
-                <i class="right fas fa-angle-left"></i>
+                Puntaje Usuarios
               </p>
             </a>
-            <ul class="nav nav-treeview" id="categoriaLista">
-
+          </li>
+          <li class="nav-item">
+            <a href="../home/" class="nav-link">
+              <i class="nav-icon far fa-calendar-alt"></i>
+              <p>
+                Categorias
+              </p>
+            </a>
+          </li>
             </ul>
           </li>
-
-   
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -124,12 +129,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Perfil</h1>
+            <h1>Administrador</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Perfil Usuario</li>
+              <li class="breadcrumb-item active">Dashboard</li>
             </ol>
           </div>
         </div>
@@ -138,119 +143,113 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-3">
 
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title" id="hpta">Puntaje Usuarios</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
           </div>
-          <!-- /.col -->
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header p-2">
-                <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Inicio</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Perfil</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Crear Publicación</a></li>
-                </ul>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                <div class="tab-content">
-                  <div class="active tab-pane" id="activity">
-                    <!-- Post -->
-                    <div class="post" id="postInicio">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
-                        <span class="username">
-                          <a href="#">Jonathan Burke Jr.</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Shared publicly - 7:30 PM today</span>
-                      </div>
-                      <!-- /.user-block -->
-                      <p>
-                        Lorem ipsum represents a long-held tradition for designers,
-                        typographers and the like. Some people hate it and argue for
-                        its demise, but others ignore the hate as they create awesome
-                        tools to help create filler text for everyone from bacon lovers
-                        to Charlie Sheen fans.
-                      </p>
-
-                      <p>
-                        <div class="form-group">
-                          <label for="exampleFormControlSelect1">Example select</label>
-                          <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </select>
-                        </div>
-                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                        <span class="float-right">
-
-                        </span>
-                      </p>
-                    </div>
-                    <!-- /.post -->
-
-
-
-                  </div>
-                  <!-- /.tab-pane -->
-                  <div class="tab-pane" id="timeline">
-                    <!-- The timeline -->
-                                        <!-- Post -->
-                                        <div class="post" id="postPerfil">
-                                        </div>
-                                        <!-- /.post -->
-     
-                  </div>
-                  <!-- /.tab-pane -->
-
-                  <div class="tab-pane" id="settings">
-                    <form class="form-horizontal">
-                      <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label">Publicación</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" id="publicacionIdListar" rows="3"></textarea>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label">Categoria</label>
-                        <div class="col-sm-10">
-                        <select class="form-control" id="categoriaIdListar">
-
-                        </select>
-                        </div>
-                        </div>
-                        <div class="form-group row">
-                          <div class="offset-sm-2 col-sm-10">
-                            <button onclick="crearPublicacion()" class="btn btn-primary">Crear</button>
-                          </div>
-                      </div>
-                      </div>
-
-                    </form>
-                  </div>
-                  <!-- /.tab-pane -->
-                </div>
-                <!-- /.tab-content -->
-              </div><!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+        <div class="card-body">
+          <table id="myTable" class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Categoria</th>
+                    <th>Nombre</th>
+                    <th>Estado</th>
+                    <th>Calificación</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody id="DataResult">
+
+            </tbody>
+        </table>
+        </div>
+        <div>
+          <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+        
+                    <input type="hidden" class="form-control"placeholder="Categoria:", id="idCategoria">
+             
+                <div class="modal-body">
+                    <div class="form-group">
+                      <input type="text" class="form-control"placeholder="Categoria:", id="inputCategoria">
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="inputEstado" id="inputEstado" checked>
+                        <label class="form-check-label" for="exampleCheck1">Activo</label>
+                      </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <button type="button" onclick="editarCategoriaEnviar()" class="btn btn-primary">Guardar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <input type="hidden" class="form-control"placeholder="Categoria:", id="idCategoria">
+             
+                <div class="modal-body">
+                    <div class="form-group">
+                      <input type="text" class="form-control"placeholder="Categoria:", id="inputCrearCategoria">
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="inputCrearEstado"  checked>
+                        <label class="form-check-label" for="exampleCheck1">Activo</label>
+                      </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary" onclick="nuevoRegistro()">Guardar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+        </a>
+        </div>
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
   <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.1.0
@@ -306,14 +305,23 @@
 <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
-<script src="/lib/sweetalert2-9.10.0/sweetalert2.all.min.js"></script>
-
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
-<script src="/service/publicacion.js"></script>
+<!-- sweetalert -->
+<script src="/lib/sweetalert2-9.10.0/sweetalert2.all.min.js"></script>
+<!-- Datatable -->
+<script src="/lib/datatables-1.10.20/js/jquery.dataTables.js"></script>
+<script src="/lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script src="/lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="/lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js"></script>
+<script src="/service/listar-usuarios.js"></script>
 <script src="/service/registrar-usuario.js"></script>
 <script src="/service/login.js"></script>
 
 
+
+<script type="application/javascript">
+
+</script>
 </body>
 </html>

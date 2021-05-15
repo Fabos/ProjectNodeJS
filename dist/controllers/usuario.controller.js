@@ -23,9 +23,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuario = exports.getUsuarios = void 0;
+exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuario = exports.postUsuarioVoto = exports.getUsuariosPuntaje = exports.getUsuarios = void 0;
 const usuario_1 = __importDefault(require("../models/usuario"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const puntaje_1 = __importDefault(require("../models/puntaje"));
+const sequelize_1 = require("sequelize");
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const usuarios = yield usuario_1.default.findAll({
         where: { estado: true }
@@ -36,6 +38,38 @@ const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     });
 });
 exports.getUsuarios = getUsuarios;
+const getUsuariosPuntaje = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const usuarios = yield puntaje_1.default.findAll({
+        attributes: [[sequelize_1.Sequelize.fn('AVG', sequelize_1.Sequelize.col('Puntajes.puntaje')), 'promedio']],
+        include: [usuario_1.default],
+        group: ['Usuario.id']
+    });
+    res.json({
+        msg: 'get Usuarios',
+        usuarios: usuarios
+    });
+});
+exports.getUsuariosPuntaje = getUsuariosPuntaje;
+const postUsuarioVoto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { puntaje, usuarioId } = req.body;
+    const { uid } = req.params;
+    try {
+        const voto = yield puntaje_1.default.create({
+            puntaje: puntaje,
+            UsuarioId: usuarioId,
+        });
+        res.json({
+            voto
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el administrador'
+        });
+    }
+});
+exports.postUsuarioVoto = postUsuarioVoto;
 const getUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const usuario = yield usuario_1.default.findByPk(id);

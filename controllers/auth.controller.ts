@@ -7,6 +7,7 @@ import generarJWT from "../helpers/generar-jwt";
 export const login = async (req: Request, res: Response) => {
 
     const { email, password } = req.body;
+    
 
     try {
 
@@ -14,6 +15,7 @@ export const login = async (req: Request, res: Response) => {
         const usuario = await Usuario.findOne({
             where: { email: email },
         });
+ 
 
         //Validar existe usuario
         if (!usuario) {
@@ -51,8 +53,12 @@ export const login = async (req: Request, res: Response) => {
         }
 
         //Generar JWT
+        console.log("PRINT LOGIN");
+        
 
         const token = await generarJWT(oUsuario.id);
+        console.log("PRINT LOGIN");
+        console.log(token);
 
 
         res.json({

@@ -3,9 +3,11 @@ import { check } from 'express-validator';
 import {
     getUsuario,
     getUsuarios,
+    getUsuariosPuntaje,
     postUsuario,
     putUsuario,
-    deleteUsuario
+    deleteUsuario,
+    postUsuarioVoto
 } from '../controllers/usuario.controller';
 import { emailExiste, existeUsuario, rolValido } from '../helpers/db-validators';
 import validarCampos from '../middlewares/validar-campos';
@@ -21,6 +23,11 @@ router.get('/',[
     adminRol,
 ], getUsuarios);
 
+router.get('/admin',[
+    validarJWT, 
+    adminRol,
+], getUsuariosPuntaje);
+
 router.get('/:id',[
     validarJWT, 
     tieneRol(1, 2),
@@ -34,6 +41,12 @@ router.post('/', [
     // check('rol', 'El rol no es permitido').isIn(['Administrador', 'Usuario']),
     validarCampos
 ], postUsuario);
+
+router.post('/voto', [
+    check('voto', 'El voto sale del rango de 1 a 5').isLength({min:1, max:5}),
+    validarJWT, 
+    tieneRol(1, 2),
+], postUsuarioVoto);
 
 router.put('/:id',[
     validarJWT, 

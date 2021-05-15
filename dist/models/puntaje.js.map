@@ -1,0 +1,1 @@
+{"version":3,"file":"puntaje.js","sourceRoot":"","sources":["../../models/puntaje.ts"],"names":[],"mappings":";;;;;AAAA,yCAAqC;AACrC,kEAAkC;AAClC,wDAAgC;AAEhC,MAAM,OAAO,GAAG,oBAAE,CAAC,MAAM,CAAC,UAAU,EAAE;IAClC,OAAO,EAAC;QACJ,IAAI,EAAE,qBAAS,CAAC,MAAM;KACzB;CAEJ,CAAC,CAAC;AACH,OAAO,CAAC,SAAS,CAAC,iBAAO,CAAC,CAAC;AAE3B,kBAAe,OAAO,CAAC"}

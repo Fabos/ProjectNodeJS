@@ -36,8 +36,17 @@ $(document).ready( function (e) {
                       </p>
 
                       <p>
-                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                      <div class="form-group">
+                      <label for="exampleFormControlSelect1">Puntaje</label>
+                      <select class="form-control" id="enviarVoto${publicacion.Usuario.id}">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+                    <button type="button" class="btn btn-success" onclick="enviarVoto(${publicacion.Usuario.id})">Votar</button>
                         <span class="float-right">
 
                         </span>
@@ -83,8 +92,17 @@ $(document).ready( function (e) {
                               </p>
         
                               <p>
-                                <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                                <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                              <div class="form-group">
+                              <label for="exampleFormControlSelect1">Puntaje</label>
+                              <select class="form-control" id="enviarVoto${publicacion.Usuario.id}">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                            </select>
+                            </div>
+                            <button type="button" class="btn btn-success" onclick="enviarVoto(${publicacion.Usuario.id})">Votar</button>
                                 <span class="float-right">
         
                                 </span>
@@ -243,8 +261,17 @@ function filtrarCategoria(idCategoria){
                       </p>
 
                       <p>
-                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                      <div class="form-group">
+                      <label for="exampleFormControlSelect1">Puntaje</label>
+                      <select class="form-control" id="enviarVoto${publicacion.Usuario.id}">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                    </div>
+                    <button type="button" class="btn btn-success" onclick="enviarVoto(${publicacion.Usuario.id})">Votar</button>
                         <span class="float-right">
 
                         </span>
@@ -290,8 +317,17 @@ function filtrarCategoria(idCategoria){
                               </p>
         
                               <p>
-                                <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                                <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                              <div class="form-group">
+                              <label for="exampleFormControlSelect1">Puntaje</label>
+                              <select class="form-control" id="enviarVoto${publicacion.Usuario.id}">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                            </select>
+                            </div>
+                            <button type="button" class="btn btn-success" onclick="enviarVoto(${publicacion.Usuario.id})">Votar</button>
                                 <span class="float-right">
         
                                 </span>
@@ -405,6 +441,67 @@ function filtrarCategoria(idCategoria){
             }
         });
 
+
+}
+
+function enviarVoto(id){
+
+    event.preventDefault();
+    debugger;
+    let voto = document.getElementById('enviarVoto'+id).value;
+    let token = localStorage.getItem("token");
+
+
+    $.ajax('/api/usuarios/voto',{
+        'headers':{
+            "x-token":token
+        },
+        'data': JSON.stringify({puntaje:voto, usuarioId:id}), //{action:'x',params:['a','b','c']}
+        'type': 'POST',
+        'processData': false,
+        'contentType': 'application/json' //typically 'application/x-www-form-urlencoded', but the service you are calling may expect 'text/json'... check with the service to see what they expect as content-type in the HTTP header.
+    })
+        .done(function (data, textStatus, jqXHR) {
+            debugger;
+            console.log(jqXHR.responseJSON);
+
+            Swal.fire({
+                title: 'Voto Enviado',
+                Text: 'Su voto se registró correctamente',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+              })
+
+
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            debugger;
+            if (errorThrown == "Unauthorized") {
+                localStorage.clear();
+
+                location.href ="http://www.localhost:8000/";
+            }
+
+                let errors="";
+                jqXHR.responseJSON.errors.forEach(function(error, index){
+                    errors+="* "+error.msg+" <br> ";
+                });
+
+                if (console && console.log) {
+                    Swal.fire({
+                        title: 'Error!',
+                        html: errors,
+                        icon: 'error',
+                        confirmButtonText: 'Cool'
+                      })
+
+                
+                // console.log(jqXHR.responseJSON.errors[0].msg);
+
+                
+                console.log("La solicitud a fallado: " + textStatus);
+            }
+        });
 
 }
 

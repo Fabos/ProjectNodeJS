@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import Usuario from '../models/usuario';
 import bcryptjs from 'bcryptjs';
+import Puntaje from "../models/puntaje";
+import { Sequelize } from 'sequelize';
 
 export const getUsuarios = async (req: Request, res: Response) => {
     const usuarios = await Usuario.findAll({
@@ -11,6 +13,40 @@ export const getUsuarios = async (req: Request, res: Response) => {
         msg: 'get Usuarios',
         usuarios: usuarios
     })
+}
+
+export const getUsuariosPuntaje = async (req: Request, res: Response) => {
+    const usuarios = await Puntaje.findAll({
+        attributes : [ [Sequelize.fn('AVG', Sequelize.col('Puntajes.puntaje')),'promedio'] ],
+        include: [Usuario],
+        group: ['Usuario.id']
+    });
+    
+    res.json({
+        msg: 'get Usuarios',
+        usuarios: usuarios
+    })
+}
+
+export const postUsuarioVoto = async (req: Request, res: Response) => {
+    const { puntaje, usuarioId } = req.body;
+    const { uid } = req.params;
+    try {
+
+        const voto = await Puntaje.create({
+            puntaje: puntaje,
+            UsuarioId:usuarioId,
+        });
+        res.json({
+            voto
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el administrador'
+        })
+    }
 }
 
 export const getUsuario = async (req: Request, res: Response) => {
@@ -34,10 +70,7 @@ export const getUsuario = async (req: Request, res: Response) => {
 
 export const postUsuario = async (req: Request, res: Response) => {
     const { nombre, email, password } = req.body;
-
-
     try {
-
         //Encriptar password
         const dificultad = bcryptjs.genSaltSync();
 
@@ -58,7 +91,6 @@ export const postUsuario = async (req: Request, res: Response) => {
             msg: 'Hable con el administrador'
         })
     }
-
 }
 
 export const putUsuario = async (req: Request, res: Response) => {

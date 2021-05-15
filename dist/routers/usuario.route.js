@@ -15,6 +15,10 @@ router.get('/', [
     validar_jwt_1.default,
     validar_roles_1.adminRol,
 ], usuario_controller_1.getUsuarios);
+router.get('/admin', [
+    validar_jwt_1.default,
+    validar_roles_1.adminRol,
+], usuario_controller_1.getUsuariosPuntaje);
 router.get('/:id', [
     validar_jwt_1.default,
     validar_roles_1.tieneRol(1, 2),
@@ -27,6 +31,11 @@ router.post('/', [
     // check('rol', 'El rol no es permitido').isIn(['Administrador', 'Usuario']),
     validar_campos_1.default
 ], usuario_controller_1.postUsuario);
+router.post('/voto', [
+    express_validator_1.check('voto', 'El voto sale del rango de 1 a 5').isLength({ min: 1, max: 5 }),
+    validar_jwt_1.default,
+    validar_roles_1.tieneRol(1, 2),
+], usuario_controller_1.postUsuarioVoto);
 router.put('/:id', [
     validar_jwt_1.default,
     validar_roles_1.tieneRol(2),
